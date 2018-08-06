@@ -1,8 +1,10 @@
-import addAllAssetsToCompilation from './addAllAssetsToCompilation';
+import applyManipulatorsToCompilation from './applyManipulationToCompilation';
 
-export default class AddAssetHtmlPlugin {
-  constructor(assets = []) {
-    this.assets = Array.isArray(assets) ? assets.slice().reverse() : [assets];
+export default class ManipulateAssetsHtmlWebpackPlugin {
+  constructor(manipulators = []) {
+    this.manipulators = Array.isArray(manipulators)
+      ? manipulators.slice().reverse()
+      : [manipulators];
   }
 
   /* istanbul ignore next: this would be integration tests */
@@ -11,8 +13,8 @@ export default class AddAssetHtmlPlugin {
       compilation.plugin(
         'html-webpack-plugin-before-html-generation',
         (htmlPluginData, callback) =>
-          addAllAssetsToCompilation(
-            this.assets,
+          applyManipulatorsToCompilation(
+            this.manipulators,
             compilation,
             htmlPluginData,
             callback,
