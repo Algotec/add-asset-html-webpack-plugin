@@ -2,21 +2,22 @@
   "name": "manipulate-assets-html-webpack-plugin",
   "version": "0.0.1",
   "description": "do something with assets on the way to the generated HTML file",
-  "files": ["lib/", "index.d.ts"],
+  "files": [
+    "lib/",
+    "index.d.ts"
+  ],
   "main": "lib/index.js",
   "scripts": {
     "clean": "del-cli lib/ coverage/ example/build example/dist",
     "compile": "babel src/ --out-dir lib/",
     "cover": "jest --coverage",
     "preexample": "npm run clean && npm run compile",
-    "example":
-      "webpack --config example/webpack.config.dll.js && webpack --config example/webpack.config.js",
+    "example": "webpack --config example/webpack.config.dll.js && webpack --config example/webpack.config.js",
     "lint": "eslint .",
     "update-license": "licensor --width 72",
     "compile-and-update-license": "npm run compile && npm run update-license",
     "preversion": "npm run travis && npm run update-license",
-    "prepublish":
-      "not-in-install && npm run compile-and-update-license || in-install",
+    "prepublish": "not-in-install && npm run compile-and-update-license || in-install",
     "postpublish": "git push --follow-tags",
     "pretest": "npm run lint",
     "test": "jest",
@@ -25,7 +26,10 @@
     "precommit": "lint-staged"
   },
   "repository": "Algotec/manipulate-assets-html-webpack-plugin",
-  "keywords": ["html-webpack-plugin", "webpack"],
+  "keywords": [
+    "html-webpack-plugin",
+    "webpack"
+  ],
   "author": "Nadav Sinai <nadav@algotec.co.il>",
   "license": "MIT",
   "dependencies": {
@@ -68,9 +72,18 @@
     }
   },
   "lint-staged": {
-    "*.js": ["eslint --fix", "git add"],
-    "*.{md,json}": ["prettier --write", "git add"],
-    ".eslintrc": ["prettier --write", "git add"]
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{md,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    ".eslintrc": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "prettier": {
     "singleQuote": true,

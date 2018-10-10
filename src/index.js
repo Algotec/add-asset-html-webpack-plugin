@@ -1,4 +1,5 @@
 import applyManipulatorsToCompilation from './applyManipulationToCompilation';
+import compatAddPlugin from './compatAddPlugin';
 
 export default class ManipulateAssetsHtmlWebpackPlugin {
   constructor(manipulators = []) {
@@ -9,8 +10,9 @@ export default class ManipulateAssetsHtmlWebpackPlugin {
 
   /* istanbul ignore next: this would be integration tests */
   apply(compiler) {
-    compiler.plugin('compilation', compilation => {
-      compilation.plugin(
+    compatAddPlugin(compiler, 'compilation', compilation => {
+      compatAddPlugin(
+        compilation,
         'html-webpack-plugin-before-html-generation',
         (htmlPluginData, callback) =>
           applyManipulatorsToCompilation(
@@ -19,6 +21,8 @@ export default class ManipulateAssetsHtmlWebpackPlugin {
             htmlPluginData,
             callback,
           ),
+        true,
+        'ManipulateAssetsHtmlWebpackPlugin',
       );
     });
   }
