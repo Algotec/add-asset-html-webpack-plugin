@@ -1,14 +1,35 @@
+function* capitlizeFirstLetter(str) {
+  for (const [i, l] of Array.from(str).entries()) {
+    yield i === 0 ? l.toUpperCase() : l;
+  }
+}
+
+function* capitalizeWordsArray(rest) {
+  for (const word of rest) {
+    yield* capitlizeFirstLetter(word);
+  }
+}
+
+function kebbabCase2CamelCase(str) {
+  const strArr = str.split('-');
+  if (strArr.length < 2) return str;
+  const [first, ...rest] = strArr;
+  const restGen = capitalizeWordsArray(rest);
+  return [first, ...restGen].join('');
+}
+
 export default function compatAddPluginHook(name) {
   return (tappable, hookName, callback, async = false, forType = null) => {
-    let method = 'tap';
-    if (async) {
-      if (async.constructor.name === Promise.constructor.name) {
-        method = 'tapPromise';
-      } else {
-        method = 'tapAsync';
-      }
-    }
     if (tappable.hooks) {
+      let method = 'tap';
+      if (async) {
+        if (async.constructor.name === Promise.constructor.name) {
+          method = 'tapPromise';
+        } else {
+          method = 'tapAsync';
+        }
+      }
+      hookName = kebbabCase2CamelCase(hookName);
       if (forType) {
         tappable.hooks[hookName][method](forType, name, callback);
       } else {

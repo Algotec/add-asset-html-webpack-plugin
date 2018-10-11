@@ -22,8 +22,7 @@
     "pretest": "npm run lint",
     "test": "jest",
     "pretravis": "npm run lint && npm run clean",
-    "travis": "npm run cover",
-    "precommit": "lint-staged"
+    "travis": "npm run cover"
   },
   "repository": "Algotec/manipulate-assets-html-webpack-plugin",
   "keywords": [
