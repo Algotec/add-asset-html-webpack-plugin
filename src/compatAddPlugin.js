@@ -1,19 +1,21 @@
-export default function compatAddPlugin(
-  tappable,
-  hookName,
-  callback,
-  async = false,
-  name = callback.name,
-  forType = null,
-) {
-  const method = async ? 'tapAsync' : 'tap';
-  if (tappable.hooks) {
-    if (forType) {
-      tappable.hooks[hookName][method](forType, name, callback);
-    } else {
-      tappable.hooks[hookName][method](name, callback);
+export default function compatAddPluginHook(name) {
+  return (tappable, hookName, callback, async = false, forType = null) => {
+    let method = 'tap';
+    if (async) {
+      if (async.constructor.name === Promise.constructor.name) {
+        method = 'tapPromise';
+      } else {
+        method = 'tapAsync';
+      }
     }
-  } else {
-    tappable.plugin(hookName, callback);
-  }
+    if (tappable.hooks) {
+      if (forType) {
+        tappable.hooks[hookName][method](forType, name, callback);
+      } else {
+        tappable.hooks[hookName][method](name, callback);
+      }
+    } else {
+      tappable.plugin(hookName, callback);
+    }
+  };
 }

@@ -1,6 +1,9 @@
 import applyManipulatorsToCompilation from './applyManipulationToCompilation';
-import compatAddPlugin from './compatAddPlugin';
+import compatAddPluginHook from './compatAddPlugin';
 
+const compatAddPlugin = compatAddPluginHook(
+  'ManipulateAssetsHtmlWebpackPlugin',
+);
 export default class ManipulateAssetsHtmlWebpackPlugin {
   constructor(manipulators = []) {
     this.manipulators = Array.isArray(manipulators)
@@ -22,7 +25,6 @@ export default class ManipulateAssetsHtmlWebpackPlugin {
             callback,
           ),
         true,
-        'ManipulateAssetsHtmlWebpackPlugin',
       );
     });
   }
