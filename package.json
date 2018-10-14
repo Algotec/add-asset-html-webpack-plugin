@@ -1,6 +1,6 @@
 {
   "name": "manipulate-assets-html-webpack-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "do something with assets on the way to the generated HTML file",
   "files": [
     "lib/",
