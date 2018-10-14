@@ -29,11 +29,11 @@ export default function compatAddPluginHook(name) {
           method = 'tapAsync';
         }
       }
-      hookName = kebbabCase2CamelCase(hookName);
+      const kebabHook = kebbabCase2CamelCase(hookName);
       if (forType) {
-        tappable.hooks[hookName][method](forType, name, callback);
+        tappable.hooks[kebabHook][method](forType, name, callback);
       } else {
-        tappable.hooks[hookName][method](name, callback);
+        tappable.hooks[kebabHook][method](name, callback);
       }
     } else {
       tappable.plugin(hookName, callback);
